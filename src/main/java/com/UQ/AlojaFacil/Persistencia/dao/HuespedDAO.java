@@ -1,0 +1,25 @@
+package com.UQ.AlojaFacil.Persistencia.dao;
+
+import com.UQ.AlojaFacil.Negocio.dto.CrearHuespetDTO;
+import com.UQ.AlojaFacil.Negocio.dto.HuespedDTO;
+import com.UQ.AlojaFacil.Persistencia.Repositorio.HuespedRepository;
+import com.UQ.AlojaFacil.Persistencia.entity.HuespedEntity;
+import com.UQ.AlojaFacil.Persistencia.mapper.HuespedMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@RequiredArgsConstructor
+public class HuespedDAO {
+
+    private final HuespedRepository huespedRepository;
+    private final HuespedMapper huespedMapper;
+
+
+    public HuespedDTO save(CrearHuespetDTO crearHuespetDTO){
+        HuespedEntity entity=huespedMapper.toEntity(crearHuespetDTO);
+        HuespedEntity guardarEntity=huespedRepository.save(entity);
+        return huespedMapper.toDTO(guardarEntity);
+    }
+
+}
