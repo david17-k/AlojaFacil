@@ -8,6 +8,8 @@ import com.UQ.AlojaFacil.Persistencia.mapper.HuespedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 @RequiredArgsConstructor
 public class HuespedDAO {
@@ -20,6 +22,14 @@ public class HuespedDAO {
         HuespedEntity entity=huespedMapper.toEntity(crearHuespetDTO);
         HuespedEntity guardarEntity=huespedRepository.save(entity);
         return huespedMapper.toDTO(guardarEntity);
+    }
+
+    public Optional<HuespedDTO>findByEmail(String email){
+        return huespedRepository.findByEmail(email).map(huespedMapper::toDTO);
+    }
+
+    public boolean existsByEmail(String email){
+        return huespedRepository.existsByEmail(email);
     }
 
 }

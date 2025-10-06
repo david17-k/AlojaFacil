@@ -30,9 +30,11 @@ public class HuespedEntity {
 
     private String contraseña;
 
+
     private LocalDate fechaNacimiento;
 
-    @Column(name ="CrearHuesped")
+
+    @Column(name ="fecha_creacion_registro")
      private LocalDateTime fechaCreacionRegistro;
 
 

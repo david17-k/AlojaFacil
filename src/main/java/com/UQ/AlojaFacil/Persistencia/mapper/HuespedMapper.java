@@ -18,7 +18,7 @@ public interface HuespedMapper {
     List<HuespedDTO>toDTOList(List<HuespedEntity>entities);
 
     @Mapping(target = "id",ignore = true)
-    @Mapping(target = "contraseña",ignore = true)
+  //  @Mapping(target = "contraseña",ignore = true)
     @Mapping(target = "fechaCreacionRegistro", ignore = true)
     HuespedEntity toEntity(CrearHuespetDTO crearHuespetDTO);
 

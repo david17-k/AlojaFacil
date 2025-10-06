@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Data
 @Schema(description = "Datos para crear un Huesped")
@@ -36,7 +37,7 @@ public class CrearHuespetDTO {
     @Schema(description = "Fecha de nacimiento",
         example = "17/05/1990",
         required = true)
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
 
 

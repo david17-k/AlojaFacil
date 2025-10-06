@@ -4,6 +4,7 @@ package com.UQ.AlojaFacil.Negocio.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,7 +26,7 @@ public class HuespedDTO {
     private String celular;
 
     @Schema(description = "Fecha de nacimiento", example = "09/03/1999", required = true)
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Schema(description = "Fecha de creacion del registro", example = "2025-08-07T10:30:00",accessMode = Schema.AccessMode.READ_ONLY )
     private LocalDateTime fechaCreacionRegistro;
