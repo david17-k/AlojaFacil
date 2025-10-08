@@ -14,6 +14,12 @@ public interface HuespedRepository extends JpaRepository<HuespedEntity,Long> {
 
         Optional<HuespedEntity>findByEmail(String email);
 
+        Optional<HuespedEntity>findById(Long id);
+
         boolean existsByEmail(String emial);
+
+        boolean existsById(Long id);
+
+
 
 }

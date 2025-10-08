@@ -1,5 +1,6 @@
 package com.UQ.AlojaFacil.Persistencia.dao;
 
+import com.UQ.AlojaFacil.Negocio.dto.ActulizarHuespedDTO;
 import com.UQ.AlojaFacil.Negocio.dto.CrearHuespetDTO;
 import com.UQ.AlojaFacil.Negocio.dto.HuespedDTO;
 import com.UQ.AlojaFacil.Persistencia.Repositorio.HuespedRepository;
@@ -8,6 +9,7 @@ import com.UQ.AlojaFacil.Persistencia.mapper.HuespedMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -31,5 +33,25 @@ public class HuespedDAO {
     public boolean existsByEmail(String email){
         return huespedRepository.existsByEmail(email);
     }
+
+    public Optional<HuespedDTO>findById(Long id){
+        return huespedRepository.findById(id).map(huespedMapper::toDTO);
+    }
+
+    public List<HuespedDTO>getAllHuespedes(){
+        List<HuespedEntity>huespedEntities=huespedRepository.findAll();
+        return huespedMapper.toDTOList(huespedEntities);
+    }
+
+    public Optional<HuespedDTO>actualizar(Long id, ActulizarHuespedDTO actulizarHuespedDTO){
+        return huespedRepository.findById(id).
+                map(existingEntity->{
+                    huespedMapper.actualizarEntiyFromDTO(actulizarHuespedDTO,existingEntity);
+                    HuespedEntity actualizarEntity=huespedRepository.save(existingEntity);
+                    return huespedMapper.toDTO(actualizarEntity);
+                });
+    }
+
+
 
 }

@@ -32,6 +32,10 @@ public class CrearHuespetDTO {
         maxLength = 10)
     private String celular;
 
+    @Schema(description = "Contraseña segura",
+            example = "Juan$kas89",
+            required = true,
+            minLength = 8)
     private String contraseña;
 
     @Schema(description = "Fecha de nacimiento",

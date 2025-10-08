@@ -3,10 +3,7 @@ package com.UQ.AlojaFacil.Persistencia.entity;
 
 import jakarta.persistence.*;
 import jdk.jfr.DataAmount;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,8 +12,7 @@ import java.time.LocalDateTime;
 @Table(name = "Huesped")
 @Data
 @AllArgsConstructor
-
-
+@NoArgsConstructor
 public class HuespedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
