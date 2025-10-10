@@ -98,7 +98,6 @@ public class HuespedController {
         List<HuespedDTO> huespedes = huespedServicio.getAllHuespedes();
         return ResponseEntity.ok(huespedes);
 
-
     }
 
 
@@ -132,7 +131,7 @@ public class HuespedController {
             log.info("Huesped actualizado exitosamente ID:{}", id);
             return ResponseEntity.ok(actualizarHuesped);
         } catch (RuntimeException e) {
-            if (e.getMessage().contains("no encontrado")) {
+            if (e.getMessage().contains("no registrado")) {
                 log.warn("Huesped no encontrado para actualizarlo");
                 return ResponseEntity.notFound().build();
             }
