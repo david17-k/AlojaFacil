@@ -30,6 +30,9 @@ public class HuespedController {
     private final HuespedServicio huespedServicio;
 
 
+
+
+    @PostMapping
     @Operation(summary = "Crear huesped", description = "Guardar huesped")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Huesped creado", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = HuespedDTO.class))}),
@@ -43,8 +46,6 @@ public class HuespedController {
             ),
             @ApiResponse(responseCode = "404", description = "Huesped no creado", content = @Content)
     })
-
-    @PostMapping
     public ResponseEntity<HuespedDTO> crearHuesped(@Parameter(description = "Datos del husped al crear", required = true)
                                                    @RequestBody CrearHuespetDTO crearHuespetDTO) {
         log.info("POST /api/v0/huesped - Crear Huesped : {} ", crearHuespetDTO.getEmail());
@@ -59,9 +60,12 @@ public class HuespedController {
 
     }
 
+
+
+    @GetMapping("/{id}")
     @Operation(summary = "Buscar huesped por ID{}", description = "Busqueda de huesped")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Huesped encontrado con exito",
+            @ApiResponse(responseCode = "200", description = "Huesped encontrado con exito",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HuespedDTO.class))),
 
@@ -73,8 +77,6 @@ public class HuespedController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = String.class))),
     })
-
-    @GetMapping("/{id}")
     public ResponseEntity<HuespedDTO> buscarHuespedId(@Parameter(description = "Id para buscar huesped", required = true, example = "1")
                                                       @PathVariable Long id) {
         log.debug("GET /api/v0/huesped/{} - Buscancando Huesped", id);
@@ -138,6 +140,40 @@ public class HuespedController {
             return ResponseEntity.badRequest().build();
         }
         }
+
+        /*
+        //***ELIMINAR HUESPED***
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Eliminar huesped",
+            description = "Elimina huesped del sistema.No se puede eliminar si tiene reservas asociadas")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Huesped eliminado con exito"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Huesped no encontrado"
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "El huesped cuenta con una reserva a su nombre"
+            )
+    })
+    public ResponseEntity<Void>eliminarHuesped(
+            @Parameter(description = "ID del huesped a eliminar",required = true,example = "1")
+            @PathVariable Long id){
+        log.info("DELETE /api/v0/huesped/{} -Eliminar huesped",id);
+
+        try{
+            huespedServicio.
+        }
+
+    }
+    )
+
+         */
     }
 
 

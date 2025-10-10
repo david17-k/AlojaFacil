@@ -25,7 +25,7 @@ public class HuespedDTO {
     @Schema(description = "Numero celular del huesped" , example = "3124256591", required = true, maxLength = 10)
     private String celular;
 
-    @Schema(description = "Fecha de nacimiento", example = "09/03/1999", required = true)
+    @Schema(description = "Fecha de nacimiento", example = "09-03-1999", required = true)
     private LocalDate fechaNacimiento;
 
     @Schema(description = "Fecha de creacion del registro", example = "2025-08-07T10:30:00",accessMode = Schema.AccessMode.READ_ONLY )

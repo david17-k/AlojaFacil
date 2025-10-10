@@ -18,6 +18,7 @@ public interface HuespedServicio {
 
     HuespedDTO actualizarHuesped(Long id, ActulizarHuespedDTO actulizarHuespedDTO);
 
+    void eliminarHuesped(Long id);
 
 
 }

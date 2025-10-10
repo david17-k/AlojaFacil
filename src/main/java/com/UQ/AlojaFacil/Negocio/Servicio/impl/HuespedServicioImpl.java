@@ -25,7 +25,7 @@ public class HuespedServicioImpl implements HuespedServicio {
      log.info("Creando nuevo huesped con email:{}",crearHuespetDTO.getEmail());
      if(huespedDAO.existsByEmail(crearHuespetDTO.getEmail())){
          log.warn("Intento de crear huesped con email duplicado");
-         throw new IllegalArgumentException("Ya existe el emial");
+         throw new IllegalArgumentException("Ya existe el email");
      }
      validarCrearHuesped(crearHuespetDTO);
 
@@ -63,6 +63,11 @@ public class HuespedServicioImpl implements HuespedServicio {
                 .orElseThrow(()->new RuntimeException("Error al actualizar huesped"));
         log.info("Huesped actualizado con exito ID: {}",id);
         return actualizarHuesped;
+    }
+
+    @Override
+    public void eliminarHuesped(Long id) {
+
     }
 
     private void validarCrearHuesped(CrearHuespetDTO crearHuespetDTO){
