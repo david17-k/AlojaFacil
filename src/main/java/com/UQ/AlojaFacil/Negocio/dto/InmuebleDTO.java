@@ -34,10 +34,10 @@ public class InmuebleDTO {
     private String direccion;
 
     @Schema(description = "Latitud del inmueble",example = " 04º 37' 12”")
-    private String latitud;
+    private double latitud;
 
     @Schema(description = "Longitud del mueble",example = "75º 38' 20")
-    private String longitud;
+    private double longitud;
 
     //***Datos del Anfitrion***
     @Schema(description = "Id unico del anfitrion",example = "3",required = true)

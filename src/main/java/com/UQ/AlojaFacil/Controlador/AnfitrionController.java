@@ -61,6 +61,19 @@ public class AnfitrionController {
     }
 
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Anfitrion encontrado con exito",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = HuespedDTO.class))),
+
+            @ApiResponse(responseCode = "404", description = "Anfitrion no encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+
+            @ApiResponse(responseCode = "500", description = "Error del servido",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+    })
     public ResponseEntity<AnfitrionDTO>buscarAnfitrionId(@Parameter(description = "Buscar el anfitrion por id",required = true)
                                                          @PathVariable Long id){
         log.debug("GET /api/v0/anfitrion - Buscando anfitrion con ID{} ",id);
@@ -84,6 +97,22 @@ public class AnfitrionController {
 
     //***Actualizar Anfitrion***
     @PutMapping("/{id}")
+    @Operation(summary = "Actualiar datos de anfitrion", description = "Actualia los datos del anfitrion existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Datos del anfitrion actualizados correctamente",
+                    content = @Content(mediaType = "appliaction/json",
+                            schema = @Schema(implementation = HuespedDTO.class))),
+
+            @ApiResponse(responseCode = "400", description = "Datos no actualizados del anfitrion",
+                    content = @Content(mediaType = "applicatio/json",
+                            schema = @Schema(implementation = String.class))),
+
+            @ApiResponse(responseCode = "404",description = "Anfitrion no encontrado"),
+
+            @ApiResponse(responseCode = "500", description = "Error del servidor",
+                    content = @Content(mediaType = "appliaction/json",
+                            schema = @Schema(implementation = HuespedDTO.class)))
+    })
     public ResponseEntity<AnfitrionDTO>actualizarAnfitrion(@Parameter(description = "Actualiar Anfitrion",required = true)
                                                            @PathVariable Long id,
                                                            @Parameter(description = "Datos actualizados del Anfitrion",required = true)
@@ -104,5 +133,55 @@ public class AnfitrionController {
         }
 
     }
+
+
+    //***Eliminar Anfitrion**
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminar anfitrion",
+            description ="Eliminar anfitrion del sistema,no debe tener inmuble a su nombre" )
+    @ApiResponses(value = {
+    @ApiResponse(responseCode = "204", description = "Anfitrion eliminado",
+            content = @Content(mediaType = "appliaction/json",
+                    schema = @Schema(implementation = HuespedDTO.class))),
+
+    @ApiResponse(responseCode = "404", description = "Anfitrion no encontrado",
+            content = @Content(mediaType = "applicatio/json",
+                    schema = @Schema(implementation = String.class))),
+
+    @ApiResponse(responseCode = "409",
+            description = "No se puede eliminar anfitrion tiene alojamientos a su nombre"),
+
+    @ApiResponse(responseCode = "500", description = "Error del servidor",
+            content = @Content(mediaType = "appliaction/json",
+                    schema = @Schema(implementation = HuespedDTO.class)))})
+
+    public ResponseEntity<Void>eliminarAnfitrion(@Parameter(description = "ID del anfitrion a eliminar",required = true)
+                                                 @PathVariable Long id){
+        log.info("DELETE /api/v0/anfitrion/ - Eliminar anfitrion con ID{}",id);
+
+        try {
+            anfitrionServicio.eliminarAnfitrion(id);
+            log.info("Eliminacion correcta del anfitrion");
+            return ResponseEntity.noContent().build();
+        }catch (RuntimeException e){
+            if(e.getMessage().contains("no encontrado")){
+                log.warn("Anfitrion no encontrado");
+                return ResponseEntity.notFound().build();
+            } else if (e.getMessage().contains("inmuebles")) {
+                log.warn("Intento eliminar anfitrion con Inmubles ID{}",id);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+            log.warn("Error al intentar eliminar anfitrion");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+
+
+
+    }
+
+
+
+
 
 }

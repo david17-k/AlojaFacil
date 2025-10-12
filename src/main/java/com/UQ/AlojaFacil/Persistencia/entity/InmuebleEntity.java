@@ -10,23 +10,28 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "Inmueble")
 public class InmuebleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //***Anfitrion del alojamiento***
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "anfitrion_id")
     private AnfitrionEntity anfitrionEntity;
 
     private String titulo;
 
     private String descripcion;
 
+    @Column(name = "precio_noche")
     private double precioNoche;
 
     private String servicios;
 
+    @Column(name = "num_personas")
     private int numPersonas;
 
     //***Coordenadas del alojamineto***
@@ -35,9 +40,9 @@ public class InmuebleEntity {
 
     private String direccion;
 
-    private String latitud;
+    private double latitud;
 
-    private String longitud;
+    private double longitud;
 
 
 

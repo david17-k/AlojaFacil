@@ -42,4 +42,17 @@ public class AnfitrionDAO {
                 });
     }
 
+    public Long countInmuebleByAnfitrionId(Long id){
+        return anfitrionRepository.countInmuebleByAnfitrionId(id);
+    }
+
+    //***Eliminar anfitrion**
+    public boolean deletById(Long id){
+        if(anfitrionRepository.existsById(id)){
+            anfitrionRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
 }

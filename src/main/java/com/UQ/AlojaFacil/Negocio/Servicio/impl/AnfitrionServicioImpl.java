@@ -39,7 +39,7 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
     public AnfitrionDTO getAnfitrionById(Long id) {
         log.info("Buscando anfitrion por ID{}",id);
         return anfitrionDAO.findById(id).orElseThrow(()->{
-                log.warn("No se encotro el ID{}",id);
+                log.warn("Anfitrion no encontrado el ID{}",id);
                 return new RuntimeException("Anfitrion no encontrado con ID{}"+id);
         });
 
@@ -64,6 +64,24 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
         return actualizaAnfitrion;
     }
 
+    @Override
+    public void eliminarAnfitrion(Long id) {
+        log.info("Eliminando anfitrion con ID{}",id);
+
+        AnfitrionDTO anfitrion=getAnfitrionById(id);
+
+        Long inmueble= anfitrionDAO.countInmuebleByAnfitrionId(id);
+        if(inmueble>0){
+        log.warn("Intento eliminar un Anfitrion con inmubles a su nombre ID{}",id);
+        throw new IllegalStateException("No se puede borrar anfitriones con inmuebles a su nombre");
+        }
+        boolean borrar=anfitrionDAO.deletById(id);
+        if(!borrar){
+            throw new RuntimeException("Error de eliminacion de anfitrion");
+        }
+        log.info("Anfitrion eliminado correctamente");
+
+    }
 
 
     private void validarDatosAnfitrion(CrearAnfitrionDTO crearAnfitrionDTO){

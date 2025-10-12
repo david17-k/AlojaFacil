@@ -16,6 +16,8 @@ public interface AnfitrionServicio {
 
     AnfitrionDTO actualizarAnfitrion(Long id, ActualizarAnfitrionDTO anfitrionDTO);
 
+   void eliminarAnfitrion(Long id);
+
 
 
 }
