@@ -1,6 +1,7 @@
 package com.UQ.AlojaFacil.Negocio.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Datos para crear el inmueble")
 
 public class CrearInmuebleDTO {
-    @Schema(description = "id del alojamiento ",
-            example = "1")
-    private Long id;
+
 
     @Schema(description = "titulo del alojamiento",
             example = "Casa rural",
@@ -49,12 +48,12 @@ public class CrearInmuebleDTO {
     private String direccion;
 
     @Schema(description = "Latitud del inmueble",
-            example = " 04º 37' 12”")
-    private String latitud;
+            example = "4.642100")
+    private double latitud;
 
     @Schema(description = "Longitud del mueble",
-            example = "75º 38' 20")
-    private String longitud;
+            example = "-75.640765")
+    private double longitud;
 
     //***ID del anfitrion***
     @Schema(description = "ID unico del anfitrion",
