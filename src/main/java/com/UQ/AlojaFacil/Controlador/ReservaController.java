@@ -30,12 +30,9 @@ public class ReservaController {
                                                             required = true)
                                                       @RequestBody CrearReservaDTO crearReservaDTO){
         log.info("POST /api/v0/reserva -Crear nueva reserva{}",crearReservaDTO.getIdHuesped());
-        try {
             ReservaDTO creaReserva=reservaServicio.crearReserva(crearReservaDTO);
             log.info("Creando Nueva reserva con ID{}",creaReserva.getId());
-            return ResponseEntity.status(HttpStatus.CREATED).body(creaReserva);
-        }catch (RuntimeException e){
-          return  ResponseEntity.badRequest().build();
-        }
+            return ResponseEntity.ok(creaReserva);
+
     }
 }

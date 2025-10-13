@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class CrearReservaDTO {
 
     @Schema(description = "Fecha de la reserva",
-            example = "12-12-2025",
+            example = "2025-12-12",
             required = true)
     private LocalDate fechaReserva;
 

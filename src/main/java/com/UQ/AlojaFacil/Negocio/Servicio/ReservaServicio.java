@@ -6,4 +6,5 @@ import com.UQ.AlojaFacil.Negocio.dto.ReservaDTO;
 public interface ReservaServicio {
 
     ReservaDTO crearReserva(CrearReservaDTO crearReservaDTO);
+
 }

@@ -90,7 +90,6 @@ public class HuespedServicioImpl implements HuespedServicio {
         if(actulizarHuespedDTO.getCelular()==null || actulizarHuespedDTO.getCelular().trim().isEmpty()){
             throw new IllegalArgumentException("El numero de celular es obligatorio");
         }
-
     }
 
     private boolean validarEmail(String emial){

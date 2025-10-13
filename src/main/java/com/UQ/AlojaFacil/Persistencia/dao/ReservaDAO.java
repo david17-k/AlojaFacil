@@ -23,4 +23,8 @@ public class ReservaDAO {
         return reservaMapper.toDTO(guardarReserva);
     }
 
+    public boolean verificarInmueble(Long idInmueble){
+        return reservaRepository.existsByInmuebleEntity_Id(idInmueble);
+    }
+
 }

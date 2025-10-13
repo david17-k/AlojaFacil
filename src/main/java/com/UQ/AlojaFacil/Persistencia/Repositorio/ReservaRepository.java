@@ -11,8 +11,11 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity,Long> {
 
     Optional<ReservaEntity>findById(Long id);
 
-    @Query("SELECT COUNT(p) FROM ReservaEntity p WHERE p.huespedEntity.id = :huespedId")
-    Long countReservaByHuespedId(@Param("huespedId") Long anfitrionId);
 
+    @Query("SELECT COUNT(p) FROM ReservaEntity p WHERE p.huespedEntity.id = :huespedId")
+    Long countReservaByHuespedId(@Param("huespedId") Long huespedId);
+
+
+    boolean existsByInmuebleEntity_Id(Long inmueble);
 
 }
