@@ -41,7 +41,7 @@ public class AnfitrionController {
                             schema = @Schema(implementation = String.class)
                     )
             ),
-            @ApiResponse(responseCode = "404", description = "Anfitrion no creado", content = @Content)
+            @ApiResponse(responseCode = "500", description = "Anfitrion no creado", content = @Content)
     })
     public ResponseEntity<AnfitrionDTO>crearAnfitrion(@Parameter(description = "Crear nuevo anfitrion",required = true)
             @RequestBody CrearAnfitrionDTO crearAnfitrionDTO){
@@ -66,9 +66,15 @@ public class AnfitrionController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = HuespedDTO.class))),
 
+            @ApiResponse(responseCode = "400", description = "Formato incorrecto",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+
             @ApiResponse(responseCode = "404", description = "Anfitrion no encontrado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = String.class))),
+
+
 
             @ApiResponse(responseCode = "500", description = "Error del servido",
                     content = @Content(mediaType = "application/json",
@@ -82,6 +88,9 @@ public class AnfitrionController {
             AnfitrionDTO anfitrion=anfitrionServicio.getAnfitrionById(id);
             return ResponseEntity.ok(anfitrion);
         }catch (RuntimeException e){
+            if(e.getMessage().contains("formato")){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
             log.warn("Anfitrion no registrado con ID{}",id);
             return ResponseEntity.notFound().build();
         }

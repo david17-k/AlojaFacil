@@ -38,6 +38,7 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
     @Transactional(readOnly = true)
     public AnfitrionDTO getAnfitrionById(Long id) {
         log.info("Buscando anfitrion por ID{}",id);
+        validarFormatoId(id);
         return anfitrionDAO.findById(id).orElseThrow(()->{
                 log.warn("Anfitrion no encontrado el ID{}",id);
                 return new RuntimeException("Anfitrion no encontrado con ID{}"+id);
@@ -83,6 +84,12 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
 
     }
 
+    private void validarFormatoId(Long id){
+        if(id==null || id<=0){
+            throw new RuntimeException("El id no cumple con el formato");
+        }
+    }
+
 
     private void validarDatosAnfitrion(CrearAnfitrionDTO crearAnfitrionDTO){
         if(crearAnfitrionDTO.getNombre()==null || crearAnfitrionDTO.getNombre().trim().isEmpty()){
@@ -102,7 +109,7 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
 
     private void validarActualizarAnfitrion(ActualizarAnfitrionDTO actualizar){
         if(actualizar.getNombre()==null || actualizar.getNombre().trim().isEmpty()){
-            throw new IllegalArgumentException("El nombre es obligatori");
+            throw new IllegalArgumentException("El nombre es obligatorio");
         }
         if(actualizar.getCelular()==null || actualizar.getCelular().trim().isEmpty()){
             throw new IllegalArgumentException("El celular es obligatorio");

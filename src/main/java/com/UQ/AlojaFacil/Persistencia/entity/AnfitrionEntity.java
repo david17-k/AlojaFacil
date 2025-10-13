@@ -34,7 +34,7 @@ public class AnfitrionEntity {
 
     private String contraseña;
 
-    @Column(name = "fecha_nacimiento")
+   @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
     @OneToMany(mappedBy = "anfitrionEntity", fetch = FetchType.LAZY )
