@@ -104,5 +104,47 @@ public class AnfitrionController {
         }
 
     }
+    @DeleteMapping("/{id}")
+    @Operation(
+            summary = "Eliminar anfitrion",
+            description = "Elimina un anfitrion del sistema. No se puede eliminar si tiene inmubles asociados."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "anfitrion eliminado exitosamente"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "anfitrion no encontrado"
+            ),
+            @ApiResponse(
+                    responseCode = "409",
+                    description = "No se puede eliminar: anfitrion tiene inmuebles asociados"
+            )
+    })
+    public ResponseEntity<Void> borrarAnfitrion(
+            @Parameter(description = "ID del anfitrion a eliminar", required = true, example = "1")
+            @PathVariable Long id
+    ) {
+        log.info("DELETE /api/v0/anfitrion/ - Eliminando anfitrion{}", id);
+
+        try {
+           anfitrionServicio.eliminarAnfitrion(id);
+            log.info("anfitrion eliminado exitosamente ID: {}", id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("no encontrado")) {
+                log.warn("anfitrion no encontrado para eliminar ID: {}", id);
+                return ResponseEntity.notFound().build();
+            } else if (e.getMessage().contains("producto")) {
+                log.warn("Intento de eliminar anfitrion con inmuebles a su nombre ID: {}", id);
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
+            log.error("Error al eliminar anfitrion ID {}: {}", id, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 }
