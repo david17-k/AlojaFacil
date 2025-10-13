@@ -61,6 +61,19 @@ public class AnfitrionController {
     }
 
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Anfitrion encontrado con exito",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = HuespedDTO.class))),
+
+            @ApiResponse(responseCode = "404", description = "Anfitrion no encontrado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+
+            @ApiResponse(responseCode = "500", description = "Error del servido",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+    })
     public ResponseEntity<AnfitrionDTO>buscarAnfitrionId(@Parameter(description = "Buscar el anfitrion por id",required = true)
                                                          @PathVariable Long id){
         log.debug("GET /api/v0/anfitrion - Buscando anfitrion con ID{} ",id);
@@ -84,6 +97,19 @@ public class AnfitrionController {
 
     //***Actualizar Anfitrion***
     @PutMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Datos del anfitrion actualizados correctamente",
+                    content = @Content(mediaType = "appliaction/json",
+                            schema = @Schema(implementation = HuespedDTO.class))),
+
+            @ApiResponse(responseCode = "401", description = "Datos no actualizados del anfitrion",
+                    content = @Content(mediaType = "applicatio/json",
+                            schema = @Schema(implementation = String.class))),
+
+            @ApiResponse(responseCode = "500", description = "Error del seridor",
+                    content = @Content(mediaType = "appliaction/json",
+                            schema = @Schema(implementation = HuespedDTO.class)))
+    })
     public ResponseEntity<AnfitrionDTO>actualizarAnfitrion(@Parameter(description = "Actualiar Anfitrion",required = true)
                                                            @PathVariable Long id,
                                                            @Parameter(description = "Datos actualizados del Anfitrion",required = true)
