@@ -6,6 +6,7 @@ import com.UQ.AlojaFacil.Negocio.dto.ActualizarAnfitrionDTO;
 import com.UQ.AlojaFacil.Negocio.dto.AnfitrionDTO;
 import com.UQ.AlojaFacil.Negocio.dto.CrearAnfitrionDTO;
 import com.UQ.AlojaFacil.Negocio.dto.HuespedDTO;
+import com.UQ.AlojaFacil.Persistencia.entity.AnfitrionEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -130,6 +131,9 @@ public class AnfitrionController {
         }
 
     }
+
+
+    //***Eliminar Anfitrion***
     @DeleteMapping("/{id}")
     @Operation(
             summary = "Eliminar anfitrion",
@@ -171,6 +175,26 @@ public class AnfitrionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    //PENDIENTE CREACION DEL LOG CON SECURITY
+    /*
+
+
+    //***Log de Anfitrion***
+    @PostMapping
+    @Operation(summary = "Loggin de anfitrion",
+            description ="Ingresar con email y contraseña")
+    public ResponseEntity<AnfitrionEntity>logAnfitrion(@Parameter(description = "Ingreso a AlojaFacil con Email y contraseña"
+                                                                    ,required = true )
+                                                       @RequestParam("email")String email,
+                                                       @RequestParam("contraseña")String contraseña){
+        log.info("POST ");
+
+    }
+
+     */
+
+
 
 
 }

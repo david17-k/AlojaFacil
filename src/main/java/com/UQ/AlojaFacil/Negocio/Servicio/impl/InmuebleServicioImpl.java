@@ -33,8 +33,12 @@ public class InmuebleServicioImpl implements InmuebleServicio {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public InmuebleDTO getInmuebleId(Long id) {
-        return null;
+        log.info("Buscando inmueble con ID{}",id);
+        return inmuebleDAO.findByid(id).orElseThrow(()->{
+                log.warn("No se encontro el ID{}",id);
+               return new RuntimeException("El id no se encontro");});
     }
 
     @Override
