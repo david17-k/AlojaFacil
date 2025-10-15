@@ -16,6 +16,8 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity,Long> {
     Long countReservaByHuespedId(@Param("huespedId") Long huespedId);
 
 
+
+
     boolean existsByInmuebleEntity_Id(Long inmueble);
 
     boolean existsByHuespedEntity_Id(Long huesped);

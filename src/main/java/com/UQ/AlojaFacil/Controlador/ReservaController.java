@@ -1,6 +1,7 @@
 package com.UQ.AlojaFacil.Controlador;
 
 import com.UQ.AlojaFacil.Negocio.Servicio.ReservaServicio;
+import com.UQ.AlojaFacil.Negocio.dto.ActualizarReservaDTO;
 import com.UQ.AlojaFacil.Negocio.dto.CrearInmuebleDTO;
 import com.UQ.AlojaFacil.Negocio.dto.CrearReservaDTO;
 import com.UQ.AlojaFacil.Negocio.dto.ReservaDTO;
@@ -11,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -23,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservaController {
 
     private final ReservaServicio reservaServicio;
+
+
 
     @PostMapping
     @Operation(summary = "Reservar a inmueble",description = "Reservar inmueble")
@@ -33,6 +33,27 @@ public class ReservaController {
             ReservaDTO creaReserva=reservaServicio.crearReserva(crearReservaDTO);
             log.info("Creando Nueva reserva con ID{}",creaReserva.getId());
             return ResponseEntity.ok(creaReserva);
-
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReservaDTO>actualizarReserva(@Parameter(description = "Actualizar Reserva",
+                                                                    required = true)
+                                                           @PathVariable Long id,
+                                                       @RequestBody ActualizarReservaDTO actualizar){
+        try {
+            ReservaDTO actualizaReserva = reservaServicio.actualizarReserva(id, actualizar);
+            return ResponseEntity.ok(actualizaReserva);
+        }catch (RuntimeException e){
+            if(e.getMessage().contains("No")){
+                log.warn("No se encontro el id de reserva{}",id);
+                return ResponseEntity.notFound().build();
+            }
+            log.warn("Error al actualizar Reserva{}",id);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+
+
+
 }

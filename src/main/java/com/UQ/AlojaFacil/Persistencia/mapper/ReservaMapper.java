@@ -1,14 +1,13 @@
 package com.UQ.AlojaFacil.Persistencia.mapper;
 
+import com.UQ.AlojaFacil.Negocio.dto.ActualizarAnfitrionDTO;
+import com.UQ.AlojaFacil.Negocio.dto.ActualizarReservaDTO;
 import com.UQ.AlojaFacil.Negocio.dto.CrearReservaDTO;
 import com.UQ.AlojaFacil.Negocio.dto.ReservaDTO;
 import com.UQ.AlojaFacil.Persistencia.entity.HuespedEntity;
 import com.UQ.AlojaFacil.Persistencia.entity.InmuebleEntity;
 import com.UQ.AlojaFacil.Persistencia.entity.ReservaEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring",
         unmappedSourcePolicy = ReportingPolicy.WARN)
@@ -51,6 +50,14 @@ public interface ReservaMapper {
         return inmueble;
     }
 
+
+    @Mapping(target = "id",ignore = true)
+    @Mapping(target = "fechaReserva",ignore = true)
+    @Mapping(target = "numHuespedes",ignore = true)
+    @Mapping(target = "inmuebleEntity",ignore = true)
+    @Mapping(target = "huespedEntity",ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void actualizarEntityFronDTO(ActualizarReservaDTO actualizarReservaDTO,@MappingTarget ReservaEntity reservaEntity);
 
 
 }
