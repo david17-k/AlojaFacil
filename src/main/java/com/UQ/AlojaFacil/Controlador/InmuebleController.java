@@ -35,8 +35,7 @@ public class InmuebleController {
             log.warn("Error de validacion en crear alojamiento{}",i.getMessage());
             return ResponseEntity.badRequest().build();
         }
-
-
     }
+
 
 }

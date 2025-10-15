@@ -4,6 +4,7 @@ import com.UQ.AlojaFacil.Negocio.Servicio.HuespedServicio;
 import com.UQ.AlojaFacil.Negocio.Servicio.InmuebleServicio;
 import com.UQ.AlojaFacil.Negocio.Servicio.ReservaServicio;
 import com.UQ.AlojaFacil.Negocio.dto.CrearReservaDTO;
+import com.UQ.AlojaFacil.Negocio.dto.InmuebleDTO;
 import com.UQ.AlojaFacil.Negocio.dto.ReservaDTO;
 import com.UQ.AlojaFacil.Persistencia.dao.ReservaDAO;
 import lombok.RequiredArgsConstructor;
@@ -42,13 +43,20 @@ public class ReservaServicioImpl implements ReservaServicio {
 
     //***Validacion de Reserva***
     private void validacionReserva(CrearReservaDTO crearReservaDTO){
+        InmuebleDTO reserva=inmuebleServicio.getInmuebleId(crearReservaDTO.getIdInmueble());
         if(crearReservaDTO.getFechaReserva().isBefore(LocalDate.now())){
            log.warn("Fecha pasada {}",crearReservaDTO.getFechaReserva());
            throw new IllegalArgumentException("La fecha ingresada es pasada");
         }
+        if(crearReservaDTO.getNumHuespedes()>reserva.getNumPersonas()){
+            log.warn("El numero de personas excede la capacidad del inmueble{}",crearReservaDTO.getIdInmueble());
+            throw new IllegalArgumentException("El numero de personas excede la capacidad del inmueble");
+        }
+        if(reservaDAO.verificarHuesped(crearReservaDTO.getIdHuesped())){
+            log.warn("El huesped ya cuenta con una reserva a su nombre{}",crearReservaDTO.getIdHuesped());
+            throw new IllegalArgumentException("El huesped ya tiene una reserva pendiente");
+        }
     }
-
-    //***Validacion de Negocio***
 
 
 

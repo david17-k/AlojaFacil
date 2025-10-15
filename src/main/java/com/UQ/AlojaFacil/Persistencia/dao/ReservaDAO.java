@@ -27,4 +27,8 @@ public class ReservaDAO {
         return reservaRepository.existsByInmuebleEntity_Id(idInmueble);
     }
 
+    public boolean verificarHuesped(Long idHuesped){
+        return reservaRepository.existsByHuespedEntity_Id(idHuesped);
+    }
+
 }

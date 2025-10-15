@@ -39,7 +39,7 @@ public class HuespedServicioImpl implements HuespedServicio {
     public HuespedDTO getHuespedById(Long id) {
         log.info("Buscar id de huesped con ID{}",id);
             return huespedDAO.findById(id).orElseThrow(()->{
-                    log.warn("No se encntro el ID{}",id);
+                    log.warn("No se encontro el ID{}",id);
                     return new  RuntimeException("Huesped no encontrado con ID{}"+id);
             });
     }

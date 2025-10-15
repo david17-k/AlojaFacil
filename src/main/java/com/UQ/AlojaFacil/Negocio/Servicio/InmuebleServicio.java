@@ -2,9 +2,9 @@ package com.UQ.AlojaFacil.Negocio.Servicio;
 
 import com.UQ.AlojaFacil.Negocio.dto.CrearInmuebleDTO;
 import com.UQ.AlojaFacil.Negocio.dto.InmuebleDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface InmuebleServicio {
@@ -13,5 +13,7 @@ public interface InmuebleServicio {
 
     InmuebleDTO getInmuebleId(Long id);
 
-    List<InmuebleDTO>getAllInmuebles();
+    List<InmuebleDTO> getAllInmuebles();
+
+
 }

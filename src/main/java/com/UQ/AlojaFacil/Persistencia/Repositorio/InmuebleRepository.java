@@ -17,4 +17,7 @@ public interface InmuebleRepository extends JpaRepository<InmuebleEntity,Long> {
 
     @Query("SELECT i FROM InmuebleEntity i JOIN FETCH i.anfitrionEntity WHERE i.id = :id")
     Optional<InmuebleEntity>findByWithAnfitrion(@Param("id") Long id);
+
+
+
 }

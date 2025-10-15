@@ -18,4 +18,6 @@ public interface ReservaRepository extends JpaRepository<ReservaEntity,Long> {
 
     boolean existsByInmuebleEntity_Id(Long inmueble);
 
+    boolean existsByHuespedEntity_Id(Long huesped);
+
 }

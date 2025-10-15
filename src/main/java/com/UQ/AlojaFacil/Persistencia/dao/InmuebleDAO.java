@@ -6,7 +6,6 @@ import com.UQ.AlojaFacil.Negocio.dto.InmuebleDTO;
 import com.UQ.AlojaFacil.Persistencia.Repositorio.InmuebleRepository;
 import com.UQ.AlojaFacil.Persistencia.entity.InmuebleEntity;
 import com.UQ.AlojaFacil.Persistencia.mapper.InmuebleMapper;
-import com.UQ.AlojaFacil.config.OpenApiConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -38,6 +37,18 @@ public class InmuebleDAO {
         return inmuebleRepository.findByWithAnfitrion(id).
                 map(inmuebleMapper::toTDO);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
