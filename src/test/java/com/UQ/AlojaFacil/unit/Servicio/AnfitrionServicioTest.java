@@ -109,7 +109,10 @@ public class AnfitrionServicioTest {
 
         //Arrange
         CrearAnfitrionDTO crear=new CrearAnfitrionDTO();
-                crear.setEmail("JuanD");
+                crear.setNombre("JuanD");
+                crear.setCelular("312656781");
+                crear.setContraseña("testC");
+                crear.setFechaNacimiento(LocalDate.now());
                 crear.setEmail(validarAnfitrionDTO.getEmail());
 
         when(anfitrionDAO.existsByEmail(crear.getEmail())).thenReturn(true);
