@@ -137,5 +137,4 @@ public class AnfitrionServicioTest {
         verify(anfitrionDAO,never()).existsByEmail(anyString());
         verify(anfitrionDAO,never()).save(any());
     }
-
 }
