@@ -46,6 +46,9 @@ dependencies {
 
     // AssertJ para assertions fluidas
     testImplementation 'org.assertj:assertj-core'
+
+	//Validar Correo Electronico
+	implementation 'commons-validator:commons-validator:1.8.0'
 }
 test {
     useJUnitPlatform() // Requerido para JUnit 5

@@ -50,15 +50,9 @@ public class AnfitrionController {
         log.info("Clase DTO que está llegando: {}", crearAnfitrionDTO.getClass().getName());
 
         log.debug("POST api/v0/anfitrion -Crear anfitrion :{}",crearAnfitrionDTO.getEmail());
-        try {
             AnfitrionDTO creaAnfitrion = anfitrionServicio.crearAnfitrion(crearAnfitrionDTO);
             log.info("Anfitrion creado con exito con ID:{}", creaAnfitrion.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(creaAnfitrion);
-        }catch (IllegalArgumentException i){
-            log.warn("Error de validacion de datos anfitrion no creado {}", i.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
-
     }
 
     @GetMapping("/{id}")

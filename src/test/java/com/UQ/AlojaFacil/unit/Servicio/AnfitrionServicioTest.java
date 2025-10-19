@@ -122,5 +122,20 @@ public class AnfitrionServicioTest {
         verify(anfitrionDAO,never()).save(any());
     }
 
+    @Test
+    @DisplayName("CREATE -Formato invalido del email")
+    void crearAnfitrion_emailFormatoInvalido_throws(){
+
+        //Arrange
+        CrearAnfitrionDTO crear=new CrearAnfitrionDTO();
+        crear.setEmail("JuanD");
+        crear.setEmail("email_invalido_bad");
+
+        assertThatThrownBy(()->anfitrionServicioI.crearAnfitrion(crear))
+                .isInstanceOf(IllegalArgumentException.class);
+
+        verify(anfitrionDAO,never()).existsByEmail(anyString());
+        verify(anfitrionDAO,never()).save(any());
+    }
 
 }

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.apache.commons.validator.routines.EmailValidator;
 import java.util.List;
 
 @Service
@@ -24,11 +24,11 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
     @Override
     public AnfitrionDTO crearAnfitrion(CrearAnfitrionDTO crearAnfitrionDTO) {
         log.info("Creando nuevo anfitrion {}",crearAnfitrionDTO.getEmail());
+        validarDatosAnfitrion(crearAnfitrionDTO);
         if(anfitrionDAO.existsByEmail(crearAnfitrionDTO.getEmail())){
             log.warn("Intento de crear anfitrion con email duplicado");
             throw new IllegalArgumentException("El correo ya se encuentra registrado");
         }
-        validarDatosAnfitrion(crearAnfitrionDTO);
         AnfitrionDTO creaAnfitrion=anfitrionDAO.save(crearAnfitrionDTO);
         log.info("Anfitrion creado con exito con ID{}",creaAnfitrion.getId());
         return creaAnfitrion;
@@ -54,11 +54,11 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
     @Override
     public AnfitrionDTO actualizarAnfitrion(Long id, ActualizarAnfitrionDTO anfitrionDTO) {
         log.info("Actualizar anfitrion con ID{}",id);
+        validarActualizarAnfitrion(anfitrionDTO);
         if(!anfitrionDAO.findById(id).isPresent()){
             log.warn("Se intento actualizar un anfitrion no registrado con ID{}",id);
             throw new RuntimeException("Anfitrion no encontrado");
         }
-        validarActualizarAnfitrion(anfitrionDTO);
         AnfitrionDTO actualizaAnfitrion=anfitrionDAO.actualizarAnfitrion(id, anfitrionDTO)
                 .orElseThrow(()->new RuntimeException("Error al actualizar anfitrion"));
         log.info("Anfitrion actualizado con ID{}",id);
@@ -105,6 +105,9 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
         if(crearAnfitrionDTO.getFechaNacimiento()==null){
             throw new IllegalArgumentException("La fecha de nacimiento es obligatoria");
         }
+        if(!validarEmail(crearAnfitrionDTO.getEmail())){
+            throw new IllegalArgumentException("El formato del email es invalido");
+        }
     }
 
     private void validarActualizarAnfitrion(ActualizarAnfitrionDTO actualizar){
@@ -114,5 +117,9 @@ public class AnfitrionServicioImpl implements AnfitrionServicio {
         if(actualizar.getCelular()==null || actualizar.getCelular().trim().isEmpty()){
             throw new IllegalArgumentException("El celular es obligatorio");
         }
+    }
+    private boolean validarEmail(String emial){
+     EmailValidator validator=EmailValidator.getInstance();
+     return validator.isValid(emial);
     }
 }
