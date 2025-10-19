@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
-@NoArgsConstructor
+
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Schema(description = "Datos para crear el anfitrion")
 public class CrearAnfitrionDTO {
 
@@ -41,4 +42,6 @@ public class CrearAnfitrionDTO {
             example = "17/05/1990",
             required = true)
     private LocalDate fechaNacimiento;
+
+
 }

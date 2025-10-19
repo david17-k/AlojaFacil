@@ -39,6 +39,4 @@ public class ReservaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "huesped_id")
     private HuespedEntity huespedEntity;
-
-
 }
