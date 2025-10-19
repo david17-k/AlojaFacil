@@ -21,8 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
-import static org.assertj.core.api.Assertions.as;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -102,5 +101,26 @@ public class AnfitrionServicioTest {
         //Verificar que se llamaron los metodos correctos
         verify(anfitrionDAO,times(1)).save(captor.capture());
         verify(anfitrionDAO,times(1)).existsByEmail(crearAnfitrionDTO.getEmail());
+
     }
+    @Test
+    @DisplayName("CREATE -Crear anfitrion con email duplicado")
+    void crearAnfitrion_emailDuplicato_throws(){
+
+        //Arrange
+        CrearAnfitrionDTO crear=new CrearAnfitrionDTO();
+                crear.setEmail("JuanD");
+                crear.setEmail(validarAnfitrionDTO.getEmail());
+
+        when(anfitrionDAO.existsByEmail(crear.getEmail())).thenReturn(true);
+
+        //Act && Assert
+        assertThatThrownBy(()->anfitrionServicioI.crearAnfitrion(crear))
+                .isInstanceOf(IllegalArgumentException.class);
+
+        verify(anfitrionDAO,times(1)).existsByEmail(crear.getEmail());
+        verify(anfitrionDAO,never()).save(any());
+    }
+
+
 }
