@@ -22,6 +22,8 @@ public class ComentarioDTO {
     @Schema(description = "Calificacion",example = "3",maxLength = 5)
     private int calificacion;
 
+    private LocalDate fechaComentario;
+
 
     @Schema(description = "ID del inmueble reservado",example = "3")
     private Long idInmueble;

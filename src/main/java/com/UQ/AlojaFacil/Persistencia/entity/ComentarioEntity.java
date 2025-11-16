@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "Comentario")
+@EntityListeners(AuditingEntityListener.class)
 public class ComentarioEntity {
 
     @Id
@@ -34,6 +37,7 @@ public class ComentarioEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private InmuebleEntity inmuebleEntity;
 
+    @CreatedDate
     @Column(name = "fecha_comentario")
     private LocalDate fechaComentario;
 
